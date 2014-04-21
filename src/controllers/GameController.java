@@ -24,6 +24,9 @@ public class GameController {
     private Deck gameDeck;
     private Deck flop;
     private GameWindow window;
+    private int button;
+    
+    
     
     public GameController() {
         window = new GameWindow(this);
@@ -55,10 +58,8 @@ public class GameController {
     public void startGame() {
         addPlayers();
         buildCardDeck();
-        System.out.println(gameDeck.toString());
         gameDeck.shuffle();
         window.startGame();
-        //startHand();
     }
     
     public void startHand() {
@@ -68,7 +69,33 @@ public class GameController {
     }
     
     public void collectAntes() {
+        for (int i = button; i <= numberOfPlayers; i++) {
+            Player currentPlayer = (Player)players.getNth(i);
+           
+            if(!currentPlayer.isHuman()) {
+               
+                if (currentPlayer.anteUp(anteAmount)) {
+                    pot += anteAmount;
+                }
+            }
+            else {
+                
+            }
+        }
         
+        if (button > 1) {
+            for (int i = 1; i < button; i++) {
+                Player currentPlayer = (Player)players.getNth(i);
+                if(!currentPlayer.isHuman()) {
+                    if (currentPlayer.anteUp(anteAmount)) {
+                        pot += anteAmount;
+                    }
+                }
+                else {
+                    
+                }
+            }
+        }
     }
     
     public void endGame() {
@@ -91,13 +118,18 @@ public class GameController {
     
     private void dealCards() {
         Player currentPlayer = (Player)players.getFirst();
-        
+        System.out.println("Cards Dealt: \n\n");
+
         for (int j = 0; j < numberOfPlayers; j++) {
-            for (int i = 1; i <= 2; i++) {
-               currentPlayer.getCards().copyToFirst((Card)gameDeck.getFirst());
-               gameDeck.deleteFirst();
+            
+            if (currentPlayer.isAntedUp()) {
+                for (int i = 1; i <= 2; i++) {
+                    currentPlayer.getCards().copyToFirst((Card)gameDeck.getFirst());
+                    gameDeck.deleteFirst();
+                }
             }
-        
+            
+            System.out.println(currentPlayer.toString());
             currentPlayer = (Player)currentPlayer.getNext();
         }
     }

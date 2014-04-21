@@ -25,7 +25,7 @@ public class MenuBar extends JMenuBar {
     }
     
     private void buildMenu() {
-        JMenu file = new JMenu("File");
+        JMenu fileMenu = new JMenu("File");
         
         JMenuItem exit = new JMenuItem("Exit");
         exit.addActionListener(new ActionListener() {
@@ -34,8 +34,33 @@ public class MenuBar extends JMenuBar {
                 System.exit(0);
             }
         });
-        file.add(exit);
+        fileMenu.add(exit);
         
-        add(file);
+        JMenu gameMenu = new JMenu("Game");
+        
+        JMenuItem start = new JMenuItem("New Game");
+        start.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.startGame();
+            }
+        });
+        gameMenu.add(start);
+        
+        JMenuItem end = new JMenuItem("End Game");
+        end.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.endGame();
+            }
+        });
+        gameMenu.add(end);
+        
+        JMenu optionsMenu = new JMenu("Options");
+        
+                
+        add(fileMenu);
+        add(gameMenu);
+        add(optionsMenu);
     }
 }
