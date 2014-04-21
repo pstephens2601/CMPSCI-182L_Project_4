@@ -18,6 +18,7 @@ public class GameScreen extends JPanel {
     
     private GameController game;
     private GameTable gameTable;
+    private GameInfoPanel playersInfo;
     
     public GameScreen(GameController currentGame) {
         setLayout(new BorderLayout());
@@ -28,6 +29,8 @@ public class GameScreen extends JPanel {
     public void buildGameScreens() {
         gameTable = new GameTable();
         add(gameTable, BorderLayout.WEST);
+        playersInfo = new GameInfoPanel();
+        add(playersInfo, BorderLayout.CENTER);
     }
  
 }
