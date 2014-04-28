@@ -52,7 +52,7 @@ public class Deck extends LinkedList {
     
     @Override
     public String toString() {
-        
+     
         Link current = (Card)first;
         boolean stop = false;
         String data = "";

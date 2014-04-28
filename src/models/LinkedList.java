@@ -119,6 +119,12 @@ public class LinkedList {
         }   
     }
     
+    public void deleteAll() {
+        first = null;
+        last = null;
+        numElements = 0;
+    }
+    
     public boolean isEmpty() {
         if (first == null) {
             return true;
@@ -139,6 +145,9 @@ public class LinkedList {
                     currentLink = currentLink.getNext();
                 }
             }
+        }
+        else if (num == numElements) {
+            return getLast();
         }
         
         foundLink = currentLink;

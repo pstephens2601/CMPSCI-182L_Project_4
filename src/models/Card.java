@@ -6,6 +6,9 @@
 
 package models;
 
+import javax.swing.ImageIcon;
+import java.awt.*;
+
 /**
  *
  * @author Owner
@@ -14,16 +17,19 @@ public class Card extends Link {
     
     private String suit;
     private int card;
+    private Image cardImage;
     
     public Card(Link newLink, String newSuit, int newCard) {
         super(newLink);
         setSuit(suit);
         setCard(newCard);
+        //setCardImage();
     }
     
     public Card(String newSuit, int newCard) {
         setSuit(newSuit);
         setCard(newCard);
+        //setCardImage();
     }
     
     public final void setSuit(String newSuit) {
@@ -38,6 +44,10 @@ public class Card extends Link {
     
     public int getCard() {
         return card;
+    }
+    
+    public Image getCardImage() {
+        return cardImage;
     }
     
     public String getSuit() {
@@ -73,5 +83,12 @@ public class Card extends Link {
         }
         
         return cardName;
+    }
+    
+    public void setCardImage() {
+        String imagePath = "/images/" + cardName() + "_of_" + suit + ".png";
+        //System.out.println(this.getClass().getResource(imagePath));
+        ImageIcon pic = new ImageIcon(this.getClass().getResource(imagePath));
+        cardImage = pic.getImage();
     }
 }

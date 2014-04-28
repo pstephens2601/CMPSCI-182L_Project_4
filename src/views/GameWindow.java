@@ -19,6 +19,8 @@ public class GameWindow extends JFrame {
     private CardLayout screens;
     private JPanel screenContainer;
     private GameController game;
+    private GameScreen gameScreen;
+    private MenuBar mainMenu;
     
     public GameWindow(GameController currentGame) {
         game = currentGame;
@@ -26,12 +28,12 @@ public class GameWindow extends JFrame {
         screenContainer = new JPanel();
         add(screenContainer);
         screenContainer.setLayout(screens);
-        MenuBar mainMenu = new MenuBar(game);
+        mainMenu = new MenuBar(game);
         buildScreens();
         screens.show(screenContainer, "title");
         setJMenuBar(mainMenu);
-        setTitle("Texas Hold'em");
-        setSize(1024, 800);
+        setTitle("Blackjack");
+        setSize(1200, 800);
         setResizable(false);
         setLocationRelativeTo(null);
         
@@ -40,7 +42,27 @@ public class GameWindow extends JFrame {
     }
     
     public void startGame() {
+        gameScreen.startGame(); 
         screens.show(screenContainer, "game");
+        mainMenu.startGame();
+    }
+    
+    public void startHand() {
+        gameScreen.startHand();
+    }
+    
+    public void endHand() {
+        gameScreen.endHand();
+    }
+    
+    public void endGame() {
+        screens.show(screenContainer, "title");
+        mainMenu.endGame();
+        gameScreen.endGame();
+    }
+    
+    public void refresh() {
+        gameScreen.refresh();
     }
     
     public void getGameOptions() {
@@ -48,7 +70,7 @@ public class GameWindow extends JFrame {
     }
     
     private void buildScreens() {
-        GameScreen gameScreen = new GameScreen(game);
+        gameScreen = new GameScreen(game);
         screenContainer.add(gameScreen, "game");
         TitleScreen titleScreen = new TitleScreen();
         screenContainer.add(titleScreen, "title");

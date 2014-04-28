@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Player extends Link {
     
-    private Deck hand;
+    private String hand;
     private Deck pocketCards;
     private int chips;
     private int bet;
@@ -22,6 +22,7 @@ public class Player extends Link {
     private boolean isHuman;
     private int boldness;
     private boolean antedUp;
+    private int total;
     
     
     public Player(int newChips) {
@@ -29,25 +30,30 @@ public class Player extends Link {
         setChips(newChips);
         setBoldness();
         isHuman = false;
-        antedUp = false;
-        System.out.println(toString());  
+        antedUp = false; 
     }
     
     public void setHuman() {
         isHuman = true;
     }
     
+    public void setTotal(int newTotal) {
+        if (newTotal > 0 && newTotal < 40) {
+            total = newTotal;
+        }
+    }
+    
     public void setBoldness() {
         Random randomGenerator = new Random();
         boldness = randomGenerator.nextInt(25);
     }
-    
-    public Deck getHand() {
-        return hand;
+   
+    public Deck getPocketCards() {
+        return pocketCards;
     }
     
-    public void setHand(Deck newHand) {
-        hand = newHand;
+    public void setPocketCards(Deck newPocketCards) {
+        pocketCards = newPocketCards;
     }
     
     public int getChips() {
@@ -80,7 +86,6 @@ public class Player extends Link {
         else {
             data += "Player has no cards.\n\n";
         }
-        
         return data;
     }
     
@@ -99,13 +104,10 @@ public class Player extends Link {
         if (anteProbability < 100 - boldness) {
             chips -= ante;
             antedUp = true;
-            System.out.println("The roll for ante was: " + anteProbability);        
-            System.out.println("After Ante: \n" + toString());
             return true;
         }
         else {
             antedUp = false;
-            System.out.println("After Ante: \n" + toString());
             return false;
         }
     }

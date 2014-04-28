@@ -18,10 +18,23 @@ import controllers.*;
 public class MenuBar extends JMenuBar {
     
     private GameController game;
+    private JMenuItem start;
+    private JMenuItem end;
+    private JMenu gameMenu;
     
     public MenuBar(GameController currentGame) {
         game = currentGame;
         buildMenu();
+    }
+    
+    public void startGame() {
+        gameMenu.insert(end, 0);
+        gameMenu.remove(start);
+    }
+    
+    public void endGame() {
+        gameMenu.insert(start, 0);
+        gameMenu.remove(end);
     }
     
     private void buildMenu() {
@@ -36,9 +49,9 @@ public class MenuBar extends JMenuBar {
         });
         fileMenu.add(exit);
         
-        JMenu gameMenu = new JMenu("Game");
+        gameMenu = new JMenu("Game");
         
-        JMenuItem start = new JMenuItem("New Game");
+        start = new JMenuItem("New Game");
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,20 +60,16 @@ public class MenuBar extends JMenuBar {
         });
         gameMenu.add(start);
         
-        JMenuItem end = new JMenuItem("End Game");
+        end = new JMenuItem("End Game");
         end.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 game.endGame();
             }
         });
-        gameMenu.add(end);
-        
-        JMenu optionsMenu = new JMenu("Options");
-        
+        //gameMenu.add(end);
                 
         add(fileMenu);
         add(gameMenu);
-        add(optionsMenu);
     }
 }

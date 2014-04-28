@@ -18,19 +18,47 @@ public class GameScreen extends JPanel {
     
     private GameController game;
     private GameTable gameTable;
-    private GameInfoPanel playersInfo;
+    private ActionBar playersInfo;
+    private GameInfoPanel resultsPanel;
     
     public GameScreen(GameController currentGame) {
+        game = currentGame;
         setLayout(new BorderLayout());
-        buildGameScreens();
         setVisible(true);
     }
     
-    public void buildGameScreens() {
-        gameTable = new GameTable();
-        add(gameTable, BorderLayout.WEST);
-        playersInfo = new GameInfoPanel();
-        add(playersInfo, BorderLayout.CENTER);
+    public void startGame() {
+        buildGameScreens();
     }
- 
+    
+    public void endGame() {
+        remove(gameTable);
+        remove(playersInfo);
+        remove(resultsPanel);
+    }
+    
+    public void startHand() {
+        gameTable.startHand();
+        playersInfo.startHand();
+        resultsPanel.startGame();
+    }
+    
+    public void endHand() {
+        gameTable.endHand();
+        playersInfo.endHand();
+        resultsPanel.endHand();
+    }
+    
+    public void refresh() {
+        gameTable.refresh();
+    }
+    
+    public void buildGameScreens() {
+        gameTable = new GameTable(game);
+        add(gameTable, BorderLayout.CENTER);
+        playersInfo = new ActionBar(game);
+        add(playersInfo, BorderLayout.SOUTH);
+        resultsPanel = new GameInfoPanel(game);
+        add(resultsPanel, BorderLayout.NORTH);
+    }
 }
